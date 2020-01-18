@@ -606,10 +606,11 @@ class Match(db.Model):
             # Attempt to send in KV Pairs of preferred names.
             # If none, or error, send in the regular list.
             try:
-                d[teamkey]['players'] = OrderedDict()
-                for uid, name in zip(team.auths, team.preferred_names):
-                    if uid:
-                        d[teamkey]['players'][uid] = name
+                if len(filter(lambda x: x != '', team.auths)) > 0: # Check for empty player list
+                    d[teamkey]['players'] = OrderedDict()
+                    for uid, name in zip(team.auths, team.preferred_names):
+                        if uid:
+                            d[teamkey]['players'][uid] = name
             except:
                 d[teamkey]['players'] = filter(lambda x: x != '', team.auths)
 
