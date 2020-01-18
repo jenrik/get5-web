@@ -109,10 +109,13 @@ def send_rcon_command(host, port, rcon_password, command,
         except (socket.error, socket.timeout,
                 IncompleteMessageError, AuthenticationError, NoResponseError) as e:
             if attempts >= num_retries:
+                print("failed rcon comamnd: ", e)
                 if raise_errors:
                     raise RconError(str(e))
                 else:
                     return None
+            else:
+                print("retrying rcon command; ", e)
 
 
 def strip_rcon_logline(response):
