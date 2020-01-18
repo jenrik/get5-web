@@ -626,7 +626,7 @@ class Match(db.Model):
 
         # Perm spectators will go within config, then can add more from match
         # screen.
-        d['spectators'] = {"players": app.config['SPECTATOR_IDS']}
+        d['spectators'] = {"players": list(app.config['SPECTATOR_IDS'])}
 
         # If we don't have any perm spectators, create the new list.
         if not d['spectators']:
